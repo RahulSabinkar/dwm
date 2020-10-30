@@ -70,6 +70,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod1Mask
+#define SUPKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -93,7 +94,7 @@ static Key keys[] = {
 	{ MODKEY,   	                XK_Return, spawn,          {.v = termcmd } },
 	{ 0,                            XK_F12,    togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,   	                XK_w,      spawn,          SHCMD (BROWSER) },
-	{ MODKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
+	{ SUPKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
