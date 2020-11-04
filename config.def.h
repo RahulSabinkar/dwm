@@ -3,7 +3,7 @@
 # define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 10;        /* gaps between windows */
+static const unsigned int gappx     = 17;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -45,7 +45,7 @@ static const Rule rules[] = {
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "Brave",   NULL,     NULL,           1,         0,          0,          -1,        -1 },
-	{ "Ranger",  NULL,     NULL,           2,         0,          1,          -1,        -1 },
+	{ "Ranger",  NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "Terminator",NULL,   NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
@@ -89,8 +89,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,   	                XK_Return, spawn,          {.v = termcmd } },
 	{ 0,                            XK_F12,    togglescratch,  {.v = scratchpadcmd } },
-	{ MODKEY,   	                XK_w,      spawn,          SHCMD (BROWSER) },
+	{ SUPKEY,   	                XK_b,      spawn,          SHCMD (BROWSER) },
+	{ SUPKEY,   	                XK_f,      spawn,          SHCMD ("firefox") },
 	{ SUPKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
+	{ SUPKEY,   	                XK_e,      spawn,          SHCMD (TERMINAL " -e lf") },
+	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
+	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
