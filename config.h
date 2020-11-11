@@ -9,10 +9,10 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
-    "Source Code Pro Semibold:pixelsize=16",
+    "SauceCodePro Nerd Font:style=Semibold:size=12:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
-static const char dmenufont[]       = "Source Code Pro Semibold:size=16";
+static const char dmenufont[]       = "SauceCodePro Nerd Font:style=Semibold:size=16:autohint=true";
 // background color
 static const char col_gray1[]       = "#222222";
 // inactive window border color
@@ -98,6 +98,7 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
+	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
