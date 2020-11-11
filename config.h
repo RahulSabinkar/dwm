@@ -99,6 +99,7 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
+	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
