@@ -130,10 +130,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		        XK_minus,  spawn,		   SHCMD("pamixer --allow-boost -d 15") },
 	{ MODKEY,			            XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 5") },
 	{ MODKEY|ShiftMask,		        XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 15") },
+    // Takes a full screenshot of the screen
 	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+    // Takes a screenshot of the current window
 	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+    // Allows you to select a place to screenshot
 	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+    // Allows you to select a place to screenshot and copies it to your clipboard
 	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png") },
+	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
 	{ 0, 		            XF86XK_AudioMute,  spawn,		   SHCMD("pamixer -t") },
 	{ 0, 		     XF86XK_AudioRaiseVolume,  spawn,		   SHCMD("pamixer --allow-boost -i 3") },
 	{ 0, 		     XF86XK_AudioLowerVolume,  spawn,		   SHCMD("pamixer --allow-boost -d 3") },
