@@ -115,6 +115,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -131,13 +132,13 @@ static Key keys[] = {
 	{ MODKEY,			            XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 5") },
 	{ MODKEY|ShiftMask,		        XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 15") },
     // Takes a full screenshot of the screen
-	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Full screenshot taken' 'Stored in ~/pictures/screenshots'") },
     // Takes a screenshot of the current window
-	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Screenshot of Window taken' 'Stored in ~/pictures/screenshots'") },
     // Allows you to select a place to screenshot
-	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Custom Screenshot Taken' 'Stored in ~/pictures/screenshots'") },
     // Allows you to select a place to screenshot and copies it to your clipboard
-	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png") },
+	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png && notify-send 'Copied Screenshot to Clipboard' 'Stored in Clipboard'") },
 	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
 	{ 0, 		            XF86XK_AudioMute,  spawn,		   SHCMD("pamixer -t") },
 	{ 0, 		     XF86XK_AudioRaiseVolume,  spawn,		   SHCMD("pamixer --allow-boost -i 3") },

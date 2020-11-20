@@ -9,10 +9,10 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
-    "Source Code Pro Semibold:pixelsize=16",
+    "SauceCodePro Nerd Font:style=Semibold:size=12:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
-static const char dmenufont[]       = "Source Code Pro Semibold:size=16";
+static const char dmenufont[]       = "SauceCodePro Nerd Font:style=Semibold:size=16:autohint=true";
 // background color
 static const char col_gray1[]       = "#222222";
 // inactive window border color
@@ -98,6 +98,8 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
+	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
+	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -113,6 +115,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -128,10 +131,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,		        XK_minus,  spawn,		   SHCMD("pamixer --allow-boost -d 15") },
 	{ MODKEY,			            XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 5") },
 	{ MODKEY|ShiftMask,		        XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 15") },
+    // Takes a full screenshot of the screen
 	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+    // Takes a screenshot of the current window
 	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+    // Allows you to select a place to screenshot
 	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+    // Allows you to select a place to screenshot and copies it to your clipboard
 	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png") },
+	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
 	{ 0, 		            XF86XK_AudioMute,  spawn,		   SHCMD("pamixer -t") },
 	{ 0, 		     XF86XK_AudioRaiseVolume,  spawn,		   SHCMD("pamixer --allow-boost -i 3") },
 	{ 0, 		     XF86XK_AudioLowerVolume,  spawn,		   SHCMD("pamixer --allow-boost -d 3") },
