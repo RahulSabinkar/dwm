@@ -97,6 +97,8 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_e,      spawn,          SHCMD (TERMINAL " -e lf") },
 	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
+	{ SUPKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
+	{ SUPKEY,   	                XK_i,      spawn,          SHCMD ("idea.sh") },
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
@@ -132,13 +134,13 @@ static Key keys[] = {
 	{ MODKEY,			            XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 5") },
 	{ MODKEY|ShiftMask,		        XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 15") },
     // Takes a full screenshot of the screen
-	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Full screenshot taken' 'Stored in ~/pictures/screenshots'") },
     // Takes a screenshot of the current window
-	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Screenshot of Window taken' 'Stored in ~/pictures/screenshots'") },
     // Allows you to select a place to screenshot
-	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png") },
+	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Custom Screenshot Taken' 'Stored in ~/pictures/screenshots'") },
     // Allows you to select a place to screenshot and copies it to your clipboard
-	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png") },
+	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png && notify-send 'Copied Screenshot to Clipboard' 'Stored in Clipboard'") },
 	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
 	{ 0, 		            XF86XK_AudioMute,  spawn,		   SHCMD("pamixer -t") },
 	{ 0, 		     XF86XK_AudioRaiseVolume,  spawn,		   SHCMD("pamixer --allow-boost -i 3") },
