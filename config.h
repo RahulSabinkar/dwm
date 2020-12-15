@@ -98,7 +98,7 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ SUPKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
-	{ SUPKEY,   	                XK_i,      spawn,          SHCMD ("idea.sh") },
+	{ SUPKEY,   	                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
