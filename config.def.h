@@ -5,11 +5,15 @@
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx     = 17;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;     /* 0 means no systray */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = {
-    "SauceCodePro Nerd Font:style=Semibold:size=12:autohint=true",
+    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
 static const char dmenufont[]       = "SauceCodePro Nerd Font:style=Semibold:size=16:autohint=true";
@@ -49,6 +53,7 @@ static const Rule rules[] = {
 	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
+	{ NULL,            NULL,     "stalonetray",  0,         0,          0,          -1,        -1 },
 	{ "Terminator",    NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -98,10 +103,11 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ SUPKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
-	{ SUPKEY,   	                XK_i,      spawn,          SHCMD ("idea.sh") },
+	{ SUPKEY,   	                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
+	{ SUPKEY,   	                XK_l,      spawn,          SHCMD ("lutris") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
