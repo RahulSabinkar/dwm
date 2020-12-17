@@ -49,6 +49,7 @@ static const Rule rules[] = {
 	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
+	{ NULL,            NULL,     "stalonetray",  0,         0,          0,          -1,        -1 },
 	{ "Terminator",    NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -102,6 +103,7 @@ static Key keys[] = {
 	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
+	{ SUPKEY,   	                XK_l,      spawn,          SHCMD ("lutris") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
