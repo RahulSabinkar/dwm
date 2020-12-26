@@ -3,7 +3,7 @@
 # define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int gappx     = 17;        /* gaps between windows */
+static const unsigned int gappx     = 12;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -16,7 +16,10 @@ static const char *fonts[]          = {
     "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
-static const char dmenufont[]       = "SauceCodePro Nerd Font:style=Semibold:size=16:autohint=true";
+static const char dmenufont[]       = "JetBrains Mono Medium:size=10:antialias=true:autohint=true";
+    //"SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
+    //"Hack Nerd Font:pixelsize=10:antialias=true:autohint=true",
+	//"JoyPixels:pixelsize=8:antialias=true:autohint=true"
 // background color
 static const char col_gray1[]       = "#222222";
 // inactive window border color
@@ -26,9 +29,11 @@ static const char col_gray3[]       = "#bbbbbb";
 // current tag and current window color
 static const char col_gray4[]       = "#eeeeee";
 // top bar second color (blue)
-static const char col_cyan[]        = "#005577";
+// static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#3B7DCB";
 // active window border color
-static const char col_red[]         = "#fc0303";
+// static const char col_red[]         = "#fc0303";
+static const char col_red[]         = "#3B7DCB";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -50,6 +55,7 @@ static const Rule rules[] = {
 	{ "firefox",       NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "Brave-browser", NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "Signal",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "qBittorrent",   NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
