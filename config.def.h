@@ -12,11 +12,13 @@ static const int showsystray        = 1;     /* 0 means no systray */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int vertpad            = 10;       /* vertical padding of bar */
+static const int sidepad            = 10;       /* horizontal padding of bar */
 static const char *fonts[]          = {
-    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
+    "SauceCodePro Nerd Font:style=Semibold:size=14:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
-static const char dmenufont[]       = "JetBrains Mono Medium:size=10:antialias=true:autohint=true";
+static const char dmenufont[]       = "JetBrains Mono Medium:size=14:antialias=true:autohint=true";
     //"SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     //"Hack Nerd Font:pixelsize=10:antialias=true:autohint=true",
 	//"JoyPixels:pixelsize=8:antialias=true:autohint=true"
@@ -59,7 +61,6 @@ static const Rule rules[] = {
 	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
-	{ NULL,            NULL,     "stalonetray",  0,         0,          0,          -1,        -1 },
 	{ "Terminator",    NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
