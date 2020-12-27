@@ -78,8 +78,8 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod1Mask
-#define SUPKEY Mod4Mask
+#define MODKEY Mod4Mask
+#define ALTKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -102,18 +102,17 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,   	                XK_Return, spawn,          {.v = termcmd } },
 	{ 0,                            XK_F12,    togglescratch,  {.v = scratchpadcmd } },
-	{ SUPKEY,   	                XK_w,      spawn,          SHCMD (BROWSER) },
-	{ SUPKEY,   	                XK_f,      spawn,          SHCMD ("firefox") },
-	{ SUPKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
-	{ SUPKEY,   	                XK_e,      spawn,          SHCMD (TERMINAL " -e lf") },
-	{ SUPKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
-	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
-	{ SUPKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
-	{ SUPKEY,   	                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
-	{ SUPKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
-	{ SUPKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
-	{ SUPKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
-	{ SUPKEY,   	                XK_l,      spawn,          SHCMD ("lutris") },
+	{ MODKEY,   	                XK_w,      spawn,          SHCMD (BROWSER) },
+	{ MODKEY,   	                XK_f,      spawn,          SHCMD ("firefox") },
+	{ MODKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
+	{ MODKEY,   	                XK_e,      spawn,          SHCMD (TERMINAL " -e lf") },
+	{ MODKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
+//	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
+	{ MODKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
+	{ MODKEY,   	                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
+//	{ MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
+	{ ALTKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
+	{ ALTKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -129,7 +128,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
+	{ MODKEY,                       XK_F11,    togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -138,9 +137,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
-	{ MODKEY|SUPKEY,                XK_minus,  setgaps,        {.i = -1 } },
-	{ MODKEY|SUPKEY,                XK_equal,  setgaps,        {.i = +1 } },
-	{ MODKEY|SUPKEY|ControlMask,    XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ALTKEY,                XK_minus,  setgaps,        {.i = -1 } },
+	{ MODKEY|ALTKEY,                XK_equal,  setgaps,        {.i = +1 } },
+	{ MODKEY|ALTKEY|ControlMask,    XK_equal,  setgaps,        {.i = 0  } },
 	{ MODKEY,			            XK_minus,  spawn,		   SHCMD("pamixer --allow-boost -d 5") },
 	{ MODKEY|ShiftMask,		        XK_minus,  spawn,		   SHCMD("pamixer --allow-boost -d 15") },
 	{ MODKEY,			            XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 5") },
