@@ -98,6 +98,7 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "60x15"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_grave,  spawn,          SHCMD("dmenuunicode") },
 	{ MODKEY,                       XK_c,      spawn,          {.v = clipmenucmd } },
 	{ MODKEY,   	                XK_Return, spawn,          {.v = termcmd } },
 	{ 0,                            XK_F12,    togglescratch,  {.v = scratchpadcmd } },
@@ -110,8 +111,9 @@ static Key keys[] = {
 	{ MODKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
 	{ MODKEY|ALTKEY,                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
 //	{ MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
-	{ ALTKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ ALTKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
+	{ MODKEY,               XK_BackSpace,      spawn,          SHCMD("sysact") },
+	{ MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD(TERMINAL " -e sudo nmtui") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -139,10 +141,10 @@ static Key keys[] = {
 	{ MODKEY|ALTKEY,                XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY|ALTKEY,                XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ALTKEY|ControlMask,    XK_equal,  setgaps,        {.i = 0  } },
-	{ MODKEY,			            XK_minus,  spawn,		   SHCMD("pamixer --allow-boost -d 5") },
-	{ MODKEY|ShiftMask,		        XK_minus,  spawn,		   SHCMD("pamixer --allow-boost -d 15") },
-	{ MODKEY,			            XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 5") },
-	{ MODKEY|ShiftMask,		        XK_equal,  spawn,		   SHCMD("pamixer --allow-boost -i 15") },
+	{ MODKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
     // Takes a full screenshot of the screen
 	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Full screenshot taken' 'Stored in ~/pictures/screenshots'") },
     // Takes a screenshot of the current window
@@ -152,9 +154,10 @@ static Key keys[] = {
     // Allows you to select a place to screenshot and copies it to your clipboard
 	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png && notify-send 'Copied Screenshot to Clipboard' 'Stored in Clipboard'") },
 	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
-	{ 0, 		            XF86XK_AudioMute,  spawn,		   SHCMD("pamixer -t") },
-	{ 0, 		     XF86XK_AudioRaiseVolume,  spawn,		   SHCMD("pamixer --allow-boost -i 3") },
-	{ 0, 		     XF86XK_AudioLowerVolume,  spawn,		   SHCMD("pamixer --allow-boost -d 3") },
+	{ 0,         XF86XK_HomePage,   spawn, SHCMD("slock & xset dpms force off") },
+	{ 0,        XF86XK_AudioMute,   spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioRaiseVolume,   spawn, SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioLowerVolume,   spawn, SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
