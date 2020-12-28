@@ -12,13 +12,13 @@ static const int showsystray        = 1;     /* 0 means no systray */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 10;       /* vertical padding of bar */
-static const int sidepad            = 10;       /* horizontal padding of bar */
+static const int vertpad            = 0;       /* vertical padding of bar */
+static const int sidepad            = 0;       /* horizontal padding of bar */
 static const char *fonts[]          = {
-    "SauceCodePro Nerd Font:style=Semibold:size=14:autohint=true",
+    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
-static const char dmenufont[]       = "JetBrains Mono Medium:size=14:antialias=true:autohint=true";
+static const char dmenufont[]       = "JetBrains Mono Medium:size=12:antialias=true:autohint=true";
     //"SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     //"Hack Nerd Font:pixelsize=10:antialias=true:autohint=true",
 	//"JoyPixels:pixelsize=8:antialias=true:autohint=true"
@@ -93,6 +93,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *clipmenucmd[] = { "clipmenu", "-i", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "60x15", NULL };
@@ -101,16 +102,17 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "60x15"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_c,      spawn,          {.v = clipmenucmd } },
 	{ MODKEY,   	                XK_Return, spawn,          {.v = termcmd } },
 	{ 0,                            XK_F12,    togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,   	                XK_w,      spawn,          SHCMD (BROWSER) },
-	{ MODKEY,   	                XK_f,      spawn,          SHCMD ("firefox") },
+	{ MODKEY|ALTKEY,                XK_f,      spawn,          SHCMD ("firefox") },
 	{ MODKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
 	{ MODKEY,   	                XK_e,      spawn,          SHCMD (TERMINAL " -e lf") },
 	{ MODKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 //	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	{ MODKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
-	{ MODKEY,   	                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
+	{ MODKEY|ALTKEY,                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
 //	{ MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ ALTKEY,   	                XK_space,  spawn,          SHCMD ("dmenuunicode") },
 	{ ALTKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
@@ -129,7 +131,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_F11,    togglefullscr,  {0} },
+	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -176,7 +178,9 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        sigdwmblocks,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigdwmblocks,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigdwmblocks,   {.i = 3} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
