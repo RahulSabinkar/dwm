@@ -11,7 +11,8 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
 static const char *fonts[]          = {
-    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
+    "JetBrains Mono Medium:size=10:antialias=true:autohint=true",
+    "SauceCodePro Nerd Font:style=Semibold:size=12:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
 static const char dmenufont[]       = "JetBrains Mono Medium:size=12:antialias=true:autohint=true";
