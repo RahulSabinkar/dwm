@@ -48,7 +48,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "ﭮ" };
+//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 //static const char *tags[] = { "", "", "", "", "",  "", "", "", "", "" };
 //static const char *tags[] = { "",""","",""", };
 
@@ -61,8 +62,11 @@ static const Rule rules[] = {
 	{ "Gimp",          NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "firefox",       NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "Brave-browser", NULL,     NULL,           1,         0,          0,          -1,        -1 },
-	{ "Signal",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "qBittorrent",   NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "qBittorrent",   NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
+	{ "Signal",        NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
+	{ "whatsapp-nativefier-d40211",
+                       NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 },
+	{ "discord",       NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
@@ -132,7 +136,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY|ALTKEY,                XK_equal,  incrgaps,       {.i = +1 } },
 	{ MODKEY|ALTKEY,                XK_minus,  incrgaps,       {.i = -1 } },
-	{ MODKEY|ALTKEY|ShiftMask,      XK_plus,   defaultgaps,    {0} },
+	{ MODKEY|ALTKEY,                XK_plus,   defaultgaps,    {0} },
 	{ MODKEY|ALTKEY,                XK_0,      togglegaps,     {0} },
 	/* { MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } }, */
 	/* { MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } }, */
@@ -163,10 +167,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
-	{ MODKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
     // Takes a full screenshot of the screen
 	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Full screenshot taken' 'Stored in ~/pictures/screenshots'") },
     // Takes a screenshot of the current window
