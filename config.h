@@ -1,6 +1,6 @@
 /* See LICENSE file for copyright and license details. */
-# define BROWSER "librewolf"
-# define TERMINAL "st"
+#define BROWSER "librewolf"
+#define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -19,14 +19,21 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
 static const char *fonts[]          = {
-    "JetBrains Mono Medium:size=10:antialias=true:autohint=true",
-    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
-    "JoyPixels:pixelsize=16:antialias=true:autohint=true"
+    /* For normal text */
+    "JetBrainsMono:size=10",
+    /* For Font Awesome Icons */
+    "Font Awesome 6 Free Solid:style=Solid:pixelsize=14:antialiasing=true:autohint=true",
+    "Font Awesome 6 Brands:style=Regular:pixelsize=14:antialiasing=true:autohint=true",
+    "Font Awesome 6 Regular:style=Regular:pixelsize=14:antialiasing=true:autohint=true",
+    /* For Nerd Icons */
+    /* "SauceCodePro Nerd Font:size=10" */
+    /* For Emojis */
+    "JoyPixels:pixelsize=14:antialias=true:autohint=true"
 };
-static const char dmenufont[]       = "JetBrains Mono Medium:size=12:antialias=true:autohint=true";
-    //"SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
-    //"Hack Nerd Font:pixelsize=10:antialias=true:autohint=true",
-	//"JoyPixels:pixelsize=8:antialias=true:autohint=true"
+static const char dmenufont[]       = "JetBrainsMono:size=12";
+    //"SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true";
+    //"Hack Nerd Font:pixelsize=14:antialias=true:autohint=true";
+	//"JoyPixels:pixelsize=16:antialias=true:autohint=true";
 // background color
 static const char col_gray1[]       = "#222222";
 // inactive window border color
@@ -48,10 +55,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "ﭮ" };
-//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-//static const char *tags[] = { "", "", "", "", "",  "", "", "", "", "" };
-//static const char *tags[] = { "",""","",""", };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+/* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -63,6 +68,7 @@ static const Rule rules[] = {
 	{ "LibreWolf",      NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "firefox",        NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "Brave-browser",  NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "notion-app",     NULL,     NULL,           1 << 4,    0,          0,          -1,        -1 },
 	{ "qBittorrent",    NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
 	{ "Signal",         NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
 	{ "TelegramDesktop",NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 },
