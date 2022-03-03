@@ -20,7 +20,7 @@ static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
 static const char *fonts[]          = {
     "JetBrains Mono Medium:size=10:antialias=true:autohint=true",
-    "SauceCodePro Nerd Font:style=Semibold:size=12:autohint=true",
+    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
 static const char dmenufont[]       = "JetBrains Mono Medium:size=12:antialias=true:autohint=true";
@@ -58,19 +58,20 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class           instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",          NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "firefox",       NULL,     NULL,           1,         0,          0,          -1,        -1 },
-	{ "Brave-browser", NULL,     NULL,           1,         0,          0,          -1,        -1 },
-	{ "qBittorrent",   NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
-	{ "Signal",        NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
+	/* class            instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",           NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "LibreWolf",      NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "firefox",        NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "Brave-browser",  NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "qBittorrent",    NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
+	{ "Signal",         NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
 	{ "TelegramDesktop",NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 },
-	{ "discord",       NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
-	{ "Terminator",    NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
+	{ "discord",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "Ranger",         NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ "St",             NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,             NULL,     "ranger",       0,         0,          1,           0,        -1 },
+	{ "Terminator",     NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,             NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
 
 
@@ -168,6 +169,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
+	{ MODKEY,                       XK_g,      spawn,          SHCMD("gpick -s") },
 	{ ALTKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
 	{ ALTKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
 	{ ALTKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },

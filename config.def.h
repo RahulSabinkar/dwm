@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-# define BROWSER "brave"
+# define BROWSER "librewolf"
 # define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
@@ -20,7 +20,7 @@ static const int vertpad            = 0;       /* vertical padding of bar */
 static const int sidepad            = 0;       /* horizontal padding of bar */
 static const char *fonts[]          = {
     "JetBrains Mono Medium:size=10:antialias=true:autohint=true",
-    "SauceCodePro Nerd Font:style=Semibold:size=12:autohint=true",
+    "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true",
     "JoyPixels:pixelsize=16:antialias=true:autohint=true"
 };
 static const char dmenufont[]       = "JetBrains Mono Medium:size=12:antialias=true:autohint=true";
@@ -48,7 +48,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "ﭮ" };
+//static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 //static const char *tags[] = { "", "", "", "", "",  "", "", "", "", "" };
 //static const char *tags[] = { "",""","",""", };
 
@@ -57,17 +58,20 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class           instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",          NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "firefox",       NULL,     NULL,           1,         0,          0,          -1,        -1 },
-	{ "Brave-browser", NULL,     NULL,           1,         0,          0,          -1,        -1 },
-	{ "Signal",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "qBittorrent",   NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
-	{ "Ranger",        NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "St",            NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,            NULL,     "ranger",       0,         0,          1,           0,        -1 },
-	{ "Terminator",    NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,            NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
+	/* class            instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",           NULL,     NULL,           0,         1,          0,           0,        -1 },
+	{ "LibreWolf",      NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "firefox",        NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "Brave-browser",  NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "qBittorrent",    NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
+	{ "Signal",         NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
+	{ "TelegramDesktop",NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 },
+	{ "discord",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
+	{ "Ranger",         NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ "St",             NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,             NULL,     "ranger",       0,         0,          1,           0,        -1 },
+	{ "Terminator",     NULL,     NULL,           0,         0,          1,           0,        -1 },
+	{ NULL,             NULL,    "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
 };
 
 
@@ -113,11 +117,13 @@ static Key keys[] = {
 	{ 0,                            XK_F12,    togglescratch,  {.v = scratchpadcmd } },
 	{ MODKEY,   	                XK_w,      spawn,          SHCMD (BROWSER) },
 	{ MODKEY|ALTKEY,                XK_f,      spawn,          SHCMD ("firefox") },
+	{ MODKEY|ALTKEY,                XK_p,      spawn,          SHCMD ("librewolf -p private") },
+	{ MODKEY|ALTKEY,                XK_b,      spawn,          SHCMD ("brave") },
+	{ MODKEY|ALTKEY,                XK_c,      spawn,          SHCMD ("chromium") },
 	{ MODKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
-	{ MODKEY,   	                XK_e,      spawn,          SHCMD (TERMINAL " -e lf") },
+	{ MODKEY,   	                XK_e,      spawn,          SHCMD ("pcmanfm") },
 	{ MODKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
 //	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
-	{ MODKEY,   	                XK_p,      spawn,          SHCMD ("pcmanfm") },
 	{ MODKEY|ALTKEY,                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
 //	{ MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ ALTKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
@@ -132,7 +138,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY|ALTKEY,                XK_equal,  incrgaps,       {.i = +1 } },
 	{ MODKEY|ALTKEY,                XK_minus,  incrgaps,       {.i = -1 } },
-	{ MODKEY|ALTKEY|ShiftMask,      XK_plus,   defaultgaps,    {0} },
+	{ MODKEY|ALTKEY,                XK_plus,   defaultgaps,    {0} },
 	{ MODKEY|ALTKEY,                XK_0,      togglegaps,     {0} },
 	/* { MODKEY|Mod4Mask|ShiftMask,    XK_h,      incrogaps,      {.i = +1 } }, */
 	/* { MODKEY|Mod4Mask|ShiftMask,    XK_l,      incrogaps,      {.i = -1 } }, */
@@ -163,10 +169,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
-	{ MODKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,                       XK_g,      spawn,          SHCMD("gpick -s") },
+	{ ALTKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
+	{ ALTKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
     // Takes a full screenshot of the screen
 	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Full screenshot taken' 'Stored in ~/pictures/screenshots'") },
     // Takes a screenshot of the current window
