@@ -112,6 +112,27 @@ static const char *clipmenucmd[] = { "clipmenu", "-i", "-fn", dmenufont, "-nb", 
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "60x15", NULL };
+const char screenshot_full[] =
+    "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
+    "maim $dir;"
+    "cat $dir | xclip -selection clipboard -t image/png;"
+    "notify-send 'Full screenshot taken' "
+    "'Stored in ~/media/pictures/screenshots\nAlso copied to clipboard' -i \"$dir\"";
+const char screenshot_window[] =
+    "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
+    "maim -i $(xdotool getactivewindow) $dir;"
+    "cat $dir | xclip -selection clipboard -t image/png;"
+    "notify-send 'Screenshot of window taken' "
+    "'Stored in ~/media/pictures/screenshots\nAlso copied to clipboard' -i \"$dir\"";
+const char screenshot_select_save[] =
+    "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
+    "maim -u -s $dir;"
+    "notify-send 'Selected Screenshot Taken' 'Stored in ~/media/pictures/screenshots' -i \"$dir\"";
+const char screenshot_select_copy[] =
+    "dir=/tmp/selected-screenshot.png;"
+    "maim -u -s $dir;"
+    "cat $dir | xclip -selection clipboard -t image/png;"
+    "notify-send 'Copied Screenshot to Clipboard' -i \"$dir\"";
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
 static Key keys[] = {
@@ -181,13 +202,13 @@ static Key keys[] = {
 	{ ALTKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
 	{ ALTKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
     // Takes a full screenshot of the screen
-	{ 0,				            XK_Print,  spawn,		   SHCMD("maim ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Full screenshot taken' 'Stored in ~/pictures/screenshots'") },
+	{ 0,				            XK_Print,  spawn,		   SHCMD(screenshot_full) },
     // Takes a screenshot of the current window
-	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD("maim -i $(xdotool getactivewindow) ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Screenshot of Window taken' 'Stored in ~/pictures/screenshots'") },
+	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD(screenshot_window) },
     // Allows you to select a place to screenshot
-	{ ControlMask,			        XK_Print,  spawn,		   SHCMD("maim -s ~/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png && notify-send 'Custom Screenshot Taken' 'Stored in ~/pictures/screenshots'") },
+	{ ControlMask,			        XK_Print,  spawn,		   SHCMD(screenshot_select_save) },
     // Allows you to select a place to screenshot and copies it to your clipboard
-	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD("maim -s | xclip -selection clipboard -t image/png && notify-send 'Copied Screenshot to Clipboard' 'Stored in Clipboard'") },
+	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD(screenshot_select_copy) },
 	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
 	{ 0,         XF86XK_HomePage,   spawn, SHCMD("slock & xset dpms force off") },
 	{ 0,        XF86XK_AudioMute,   spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
