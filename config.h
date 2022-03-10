@@ -1,23 +1,25 @@
 /* See LICENSE file for copyright and license details. */
-#define BROWSER "librewolf"
+#define BROWSER "brave"
 #define TERMINAL "st"
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
-static const unsigned int gappih    = 20;       /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
-static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 30;       /* vert outer gap between windows and screen edge */
-static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray        = 1;     /* 0 means no systray */
-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const int vertpad            = 0;       /* vertical padding of bar */
-static const int sidepad            = 0;       /* horizontal padding of bar */
+static const unsigned int borderpx  = 3;  /* border pixel of windows */
+static const unsigned int snap      = 32; /* snap pixel */
+static const unsigned int gappih    = 20; /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10; /* vert inner gap between windows */
+static const unsigned int gappoh    = 10; /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 30; /* vert outer gap between windows and screen edge */
+static const int smartgaps          = 0;  /* 1 means no outer gap when there is only one window */
+/* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systraypinning = 0;
+static const unsigned int systrayspacing = 2; /* systray spacing */
+/* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int systraypinningfailfirst = 1;
+static const int showsystray        = 1; /* 0 means no systray */
+static const int swallowfloating    = 0; /* 1 means swallow floating windows by default */
+static const int showbar            = 1; /* 0 means no bar */
+static const int topbar             = 1; /* 0 means bottom bar */
+static const int vertpad            = 0; /* vertical padding of bar */
+static const int sidepad            = 0; /* horizontal padding of bar */
 static const char *fonts[]          = {
     /* For normal text */
     "JetBrainsMono:size=10",
@@ -31,22 +33,22 @@ static const char *fonts[]          = {
     "JoyPixels:pixelsize=14:antialias=true:autohint=true"
 };
 static const char dmenufont[]       = "JetBrainsMono:size=12";
-    //"SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true";
-    //"Hack Nerd Font:pixelsize=14:antialias=true:autohint=true";
-	//"JoyPixels:pixelsize=16:antialias=true:autohint=true";
-// background color
+    /* "SauceCodePro Nerd Font:style=Semibold:size=10:autohint=true"; */
+    /* "Hack Nerd Font:pixelsize=14:antialias=true:autohint=true"; */
+	/* "JoyPixels:pixelsize=16:antialias=true:autohint=true"; */
+ /* background color */
 static const char col_gray1[]       = "#222222";
-// inactive window border color
+ /* inactive window border color */
 static const char col_gray2[]       = "#444444";
-// font color
+ /* font color */
 static const char col_gray3[]       = "#bbbbbb";
-// current tag and current window color
+ /* current tag and current window color */
 static const char col_gray4[]       = "#eeeeee";
-// top bar second color (blue)
-// static const char col_cyan[]        = "#005577";
+ /* top bar second color (blue) */
+ /* static const char col_cyan[]        = "#005577"; */
 static const char col_cyan[]        = "#3B7DCB";
-// active window border color
-// static const char col_red[]         = "#fc0303";
+ /* active window border color */
+ /* static const char col_red[]         = "#fc0303"; */
 static const char col_red[]         = "#3B7DCB";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -107,11 +109,26 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *clipmenucmd[] = { "clipmenu", "-i", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = {
+    "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3,
+    "-sb", col_cyan, "-sf", col_gray4, NULL
+};
+static const char *clipmenucmd[] = {
+    "clipmenu", "-i", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3,
+    "-sb", col_cyan, "-sf", col_gray4, NULL
+};
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "60x15", NULL };
+const char color_picker[] = "gpick -s -o | xclip -selection clipboard";
+/* dwmblocks setup */
+const char dwmblocks_config[] = TERMINAL " -e nvim $HOME/.config/dwmblocks/config.h";
+const char volume_toggle_mute[] = "pamixer -t; kill -44 $(pidof dwmblocks)";
+const char volume_down_5[] = "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)";
+const char volume_down_15[] = "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)";
+const char volume_up_5[] = "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)";
+const char volume_up_15[] = "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)";
+/* screenshot scripts */
 const char screenshot_full[] =
     "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
     "maim $dir;"
@@ -133,6 +150,7 @@ const char screenshot_select_copy[] =
     "maim -u -s $dir;"
     "cat $dir | xclip -selection clipboard -t image/png;"
     "notify-send 'Copied Screenshot to Clipboard' -i \"$dir\"";
+const char screen_lock[] = "slock & xset dpms force off";
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
 static Key keys[] = {
@@ -150,11 +168,11 @@ static Key keys[] = {
 	{ MODKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
 	{ MODKEY,   	                XK_e,      spawn,          SHCMD ("pcmanfm") },
 	{ MODKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
-//	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
+	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
+	/* { MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") }, */
 	{ MODKEY|ALTKEY,                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
-//	{ MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") },
 	{ ALTKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
-	{ MODKEY,               XK_BackSpace,      spawn,          SHCMD("sysact") },
+	{ MODKEY,                    XK_BackSpace, spawn,          SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_n,      spawn,          SHCMD(TERMINAL " -e sudo nmtui") },
 	{ MODKEY,                       XK_t,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -196,24 +214,22 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
-	{ MODKEY,                       XK_g,      spawn,          SHCMD("gpick -s") },
-	{ ALTKEY,            XK_minus,  spawn,     SHCMD("pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)") },
-	{ ALTKEY|ShiftMask,  XK_minus,  spawn,	   SHCMD("pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)") },
-	{ ALTKEY,            XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)") },
-	{ ALTKEY|ShiftMask,  XK_equal,  spawn,	   SHCMD("pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)") },
-    // Takes a full screenshot of the screen
+	{ MODKEY,                       XK_g,      spawn,          SHCMD(color_picker) },
+    { ALTKEY,                       XK_minus,  spawn,          SHCMD(volume_down_5) },
+    { ALTKEY|ShiftMask,             XK_minus,  spawn,	       SHCMD(volume_down_15) },
+	{ ALTKEY,                       XK_equal,  spawn,	       SHCMD(volume_up_5) },
+	{ ALTKEY|ShiftMask,             XK_equal,  spawn,	       SHCMD(volume_up_15) },
 	{ 0,				            XK_Print,  spawn,		   SHCMD(screenshot_full) },
-    // Takes a screenshot of the current window
 	{ ShiftMask,			        XK_Print,  spawn,	   	   SHCMD(screenshot_window) },
-    // Allows you to select a place to screenshot
 	{ ControlMask,			        XK_Print,  spawn,		   SHCMD(screenshot_select_save) },
-    // Allows you to select a place to screenshot and copies it to your clipboard
 	{ ControlMask|ShiftMask,	    XK_Print,  spawn,		   SHCMD(screenshot_select_copy) },
 	{ ControlMask|MODKEY,	        XK_Print,  spawn,		   SHCMD("maimpick") },
-	{ 0,         XF86XK_HomePage,   spawn, SHCMD("slock & xset dpms force off") },
-	{ 0,        XF86XK_AudioMute,   spawn, SHCMD("pamixer -t; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioRaiseVolume,   spawn, SHCMD("pamixer --allow-boost -i 3; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioLowerVolume,   spawn, SHCMD("pamixer --allow-boost -d 3; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,                       XK_F12,    spawn,          SHCMD(screen_lock) },
+	{ ALTKEY,                       XK_0,      spawn,          SHCMD(volume_toggle_mute) },
+	{ 0,                      XF86XK_HomePage, spawn,          SHCMD(screen_lock) },
+	{ 0,                     XF86XK_AudioMute, spawn,          SHCMD(volume_toggle_mute) },
+	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD(volume_up_5) },
+	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD(volume_down_5) },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -239,7 +255,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button4,        sigdwmblocks,   {.i = 4} },
 	{ ClkStatusText,        0,              Button5,        sigdwmblocks,   {.i = 5} },
 	{ ClkStatusText,        ShiftMask,      Button1,        sigdwmblocks,   {.i = 6} },
-	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(TERMINAL " -e nvim ~/.config/dwmblocks/config.h") },
+	{ ClkStatusText,        ShiftMask,      Button3,        spawn,          SHCMD(dwmblocks_config) },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
