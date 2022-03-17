@@ -70,9 +70,11 @@ static const Rule rules[] = {
 	{ "LibreWolf",      NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "firefox",        NULL,     NULL,           1,         0,          0,          -1,        -1 },
 	{ "Brave-browser",  NULL,     NULL,           1,         0,          0,          -1,        -1 },
+	{ "Code",           NULL,     NULL,           1 << 2,    0,          0,          -1,        -1 },
 	{ "notion-app",     NULL,     NULL,           1 << 4,    0,          0,          -1,        -1 },
 	{ "qBittorrent",    NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
 	{ "Signal",         NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
+	{ "Mailspring",     NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
 	{ "TelegramDesktop",NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 },
 	{ "discord",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "Ranger",         NULL,     NULL,           0,         0,          1,           0,        -1 },
@@ -109,6 +111,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+static const char *roficmd[] = { "rofi", "-show", "drun", NULL };
 static const char *dmenucmd[] = {
     "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3,
     "-sb", col_cyan, "-sf", col_gray4, NULL
@@ -120,42 +123,48 @@ static const char *clipmenucmd[] = {
 static const char *termcmd[]  = { TERMINAL, NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "60x15", NULL };
-const char color_picker[] = "gpick -s -o | xclip -selection clipboard";
+static const char color_picker[] = "gpick -s -o | xclip -selection clipboard";
+/* notification keybindings */
+static const char *dunst_close[] = { "dunstctl", "close", NULL};
+static const char *dunst_close_all[] = { "dunstctl", "close-all", NULL};
+static const char *dunst_history[] = { "dunstctl", "history-pop", NULL};
 /* dwmblocks setup */
-const char dwmblocks_config[] = TERMINAL " -e nvim $HOME/.config/dwmblocks/config.h";
-const char volume_toggle_mute[] = "pamixer -t; kill -44 $(pidof dwmblocks)";
-const char volume_down_5[] = "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)";
-const char volume_down_15[] = "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)";
-const char volume_up_5[] = "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)";
-const char volume_up_15[] = "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)";
+static const char dwmblocks_config[] = TERMINAL " -e nvim $HOME/.config/dwmblocks/config.h";
+static const char volume_toggle_mute[] = "pamixer -t; kill -44 $(pidof dwmblocks)";
+static const char volume_down_5[] = "pamixer --allow-boost -d 5; kill -44 $(pidof dwmblocks)";
+static const char volume_down_15[] = "pamixer --allow-boost -d 15; kill -44 $(pidof dwmblocks)";
+static const char volume_up_5[] = "pamixer --allow-boost -i 5; kill -44 $(pidof dwmblocks)";
+static const char volume_up_15[] = "pamixer --allow-boost -i 15; kill -44 $(pidof dwmblocks)";
 /* screenshot scripts */
-const char screenshot_full[] =
+static const char screenshot_full[] =
     "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
     "maim $dir;"
     "cat $dir | xclip -selection clipboard -t image/png;"
     "notify-send 'Full screenshot taken' "
     "'Stored in ~/media/pictures/screenshots\nAlso copied to clipboard' -i \"$dir\"";
-const char screenshot_window[] =
+static const char screenshot_window[] =
     "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
     "maim -i $(xdotool getactivewindow) $dir;"
     "cat $dir | xclip -selection clipboard -t image/png;"
     "notify-send 'Screenshot of window taken' "
     "'Stored in ~/media/pictures/screenshots\nAlso copied to clipboard' -i \"$dir\"";
-const char screenshot_select_save[] =
+static const char screenshot_select_save[] =
     "dir=~/media/pictures/screenshots/screenshot-$(date '+%y-%m-%d-%H:%M:%S').png;"
     "maim -u -s $dir;"
     "notify-send 'Selected Screenshot Taken' 'Stored in ~/media/pictures/screenshots' -i \"$dir\"";
-const char screenshot_select_copy[] =
+static const char screenshot_select_copy[] =
     "dir=/tmp/selected-screenshot.png;"
     "maim -u -s $dir;"
     "cat $dir | xclip -selection clipboard -t image/png;"
     "notify-send 'Copied Screenshot to Clipboard' -i \"$dir\"";
-const char screen_lock[] = "slock & xset dpms force off";
+/* screenlock */
+static const char screen_lock[] = "slock & xset dpms force off";
 #include <X11/XF86keysym.h>
 #include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	/* { MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } }, */
+	{ MODKEY,                       XK_d,      spawn,          {.v = roficmd } },
 	{ MODKEY,                       XK_grave,  spawn,          SHCMD("dmenuunicode") },
 	{ MODKEY,                       XK_c,      spawn,          {.v = clipmenucmd } },
 	{ MODKEY,   	                XK_Return, spawn,          {.v = termcmd } },
@@ -168,7 +177,7 @@ static Key keys[] = {
 	{ MODKEY,   	                XK_s,      spawn,          SHCMD ("signal-desktop") },
 	{ MODKEY,   	                XK_e,      spawn,          SHCMD ("pcmanfm") },
 	{ MODKEY,   	                XK_r,      spawn,          SHCMD (TERMINAL " -e ranger") },
-	{ SUPKEY,   	                XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
+	{ MODKEY|ALTKEY,                 XK_h,      spawn,          SHCMD (TERMINAL " -e htop") },
 	/* { MODKEY,   	                XK_t,      spawn,          SHCMD ("xfce4-taskmanager") }, */
 	{ MODKEY|ALTKEY,                XK_i,      spawn,          SHCMD ("$HOME/intellij/bin/idea.sh") },
 	{ ALTKEY,   	                XK_x,      spawn,          SHCMD ("xkill") },
@@ -230,6 +239,10 @@ static Key keys[] = {
 	{ 0,                     XF86XK_AudioMute, spawn,          SHCMD(volume_toggle_mute) },
 	{ 0,              XF86XK_AudioRaiseVolume, spawn,          SHCMD(volume_up_5) },
 	{ 0,              XF86XK_AudioLowerVolume, spawn,          SHCMD(volume_down_5) },
+	{ ControlMask,                  XK_space,  spawn,          {.v = dunst_close} },
+	{ ControlMask|ShiftMask,        XK_space,  spawn,          {.v = dunst_close_all} },
+	{ ControlMask,                  XK_grave,  spawn,          {.v = dunst_history} },
+	{ MODKEY,                       XK_c,      spawn,          {.v = clipmenucmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
