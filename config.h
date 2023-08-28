@@ -1,13 +1,13 @@
 /* See LICENSE file for copyright and license details. */
-#define BROWSER "brave"
+#define BROWSER "firefox"
 #define TERMINAL "st"
 /* appearance */
 static const unsigned int borderpx  = 3;  /* border pixel of windows */
 static const unsigned int snap      = 32; /* snap pixel */
-static const unsigned int gappih    = 20; /* horiz inner gap between windows */
-static const unsigned int gappiv    = 10; /* vert inner gap between windows */
-static const unsigned int gappoh    = 10; /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 30; /* vert outer gap between windows and screen edge */
+static const unsigned int gappih    = 0; /* horiz inner gap between windows */
+static const unsigned int gappiv    = 0; /* vert inner gap between windows */
+static const unsigned int gappoh    = 0; /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 0; /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 0;  /* 1 means no outer gap when there is only one window */
 /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systraypinning = 0;
@@ -46,10 +46,12 @@ static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
  /* top bar second color (blue) */
  /* static const char col_cyan[]        = "#005577"; */
-static const char col_cyan[]        = "#3B7DCB";
+/* static const char col_cyan[]        = "#3B7DCB"; */
+static const char col_cyan[]        = "#2962FF";
  /* active window border color */
  /* static const char col_red[]         = "#fc0303"; */
-static const char col_red[]         = "#3B7DCB";
+/* static const char col_red[]         = "#3B7DCB"; */
+static const char col_red[]         = "#2962FF";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -57,7 +59,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+/* static const char *tags[] = { "", "", "", "", "", "", "", "", "" }; */
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
 
 static const Rule rules[] = {
@@ -75,7 +78,8 @@ static const Rule rules[] = {
 	{ "qBittorrent",    NULL,     NULL,           1 << 5,    0,          0,          -1,        -1 },
 	{ "Signal",         NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
 	{ "Mailspring",     NULL,     NULL,           1 << 6,    0,          0,          -1,        -1 },
-	{ "TelegramDesktop",NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 },
+	/* { "TelegramDesktop",NULL,     NULL,           1 << 7,    0,          0,          -1,        -1 }, */
+	{ "Spotify",        "spotify",     "Spotify",           1 << 7,    0,          0,          -1,        -1 },
 	{ "discord",        NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "Ranger",         NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "St",             NULL,     NULL,           0,         0,          1,           0,        -1 },
@@ -224,6 +228,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_n,      shiftview,      {.i = +1 } },
 	{ MODKEY,                       XK_b,      shiftview,      {.i = -1 } },
 	{ MODKEY,                       XK_g,      spawn,          SHCMD(color_picker) },
+	{ MODKEY,                       XK_y,      spawn,          SHCMD("yt-stream") },
     { ALTKEY,                       XK_minus,  spawn,          SHCMD(volume_down_5) },
     { ALTKEY|ShiftMask,             XK_minus,  spawn,	       SHCMD(volume_down_15) },
 	{ ALTKEY,                       XK_equal,  spawn,	       SHCMD(volume_up_5) },
